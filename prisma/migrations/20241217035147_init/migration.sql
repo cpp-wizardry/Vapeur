@@ -1,0 +1,8 @@
+-- CreateTable
+CREATE TABLE "Game" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT,
+    "releaseDate" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "genre" TEXT,
+    "editor" TEXT NOT NULL DEFAULT 'None'
+);
