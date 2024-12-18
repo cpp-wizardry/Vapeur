@@ -1,0 +1,30 @@
+<h1>Let's add a Game !</h1>
+
+<form action="/GamesView/Create" method="POST">
+    <label for="title">Title :</label>
+    <input type="text" id="title" name="title" required>
+    
+    <label for="description">Description :</label>
+    <textarea id="description" name="description" required></textarea>
+    
+    <label for="releaseDate">Date of release :</label>
+    <input type="date" id="releaseDate" name="releaseDate" required>
+    
+    <label for="GenreId">Genre :</label>
+    <select id="GenreId" name="GenreId" required>
+        {{#each genres}}
+            <option value="{{this.Gid}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="PublisherId">Publisher :</label>
+    <select id="PublisherId" name="PublisherId">
+        {{#each Publishers}}
+            <option value="{{this.Pid}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+    
+    <button type="submit">Add new game !</button>
+</form>
+
+<p><a href="/GamesView">Back to the landing !</a></p>   

@@ -1,0 +1,31 @@
+<h2>Title : {{game.title}}</h2>
+<p>Description : {{game.description}}</p>
+<p>Realease Date : {{game.releaseDate}}</p>
+<p>Genre : <a href="/Genres/{{game.genre.Gid}}/gameByGenre"> {{game.genre.name}}</a></p>
+
+{{#if game.Publisher}}
+        <p>Publishers : <a href="/Publishers/{{game.Publisher.Pid}}/gameByPublisher">{{game.Publisher.name}}</a></p> 
+{{else}}
+        <p>Publishers : NULL</p>
+{{/if}}
+
+<form action="/GamesView/{{game.id}}/delete?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure ?');">
+    <button type="submit" style="color: rgb(241, 188, 188); background-color: rgb(214, 102, 11); padding: 10px 20px; border: none; border-radius: 5px;">Delete Game</button>
+</form>
+
+    {{#if game.Priority}}
+    <form action="/GamesView/{{game.id}}/noPriority" method="POST">
+    <button type="submit" style="color: white; background-color: green; padding: 10px 20px; border: none; border-radius: 5px;"> unTag as Hottest</button>
+</form>
+       
+    {{else}}
+    
+<form action="/GamesView/{{game.id}}/Priority" method="POST">
+    <button type="submit" style="color: white; background-color: green; padding: 10px 20px; border: none; border-radius: 5px;">Tag as Hottest</button>
+</form>
+    {{/if}}
+
+
+<p><a href="/GamesView/{{game.id}}/edit">Edit a Game</a></p>
+
+<p><a href="/GamesView">Go back to game list</a></p>
