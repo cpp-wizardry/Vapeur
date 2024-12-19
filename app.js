@@ -221,10 +221,11 @@ app.post("/GamesView/:id/delete", async (req, res) => {
         const id = parseInt(req.params.id); 
 
         await prisma.Game.delete({
-            where: { id }
+            where: { id}
         });
-        res.redirect("/");
+        res.redirect("/GamesView");
     } catch (error) {
+        console.log(error); 
         res.status(500).send("internal server error: couldn't delete the game");
     }
 });
@@ -233,7 +234,7 @@ app.post("/GamesView/:id/delete", async (req, res) => {
 
 app.get("/Genres/:id/gameByGenre", async (req,res)=> { 
     const id = parseInt(req.params.id);
-    const game = await prisma.Game.findMany({where: {genreId: id }});
+    const game = await prisma.Game.findMany({where: {GenreId: id }});
     res.render("Genres/gameByGenre", {game});
 })
 
@@ -249,12 +250,13 @@ app.post("/Publishers/:id/delete", async (req, res) => {
         const id = parseInt(req.params.id); 
 
         await prisma.Publisher.delete({
-            where: { id }
+            where: { Pid:id }
         });
 
         res.redirect("/Publishers"); 
     }
      catch (error) {
+        console.log(error);
         res.status(500).send("internal server error: couldn't delete the publisher or update the games");
     }
 });
