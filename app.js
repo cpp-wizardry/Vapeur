@@ -10,7 +10,7 @@ app.listen(PORT, () => {
 });
 
 app.set("view engine", "hbs"); 
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "Views"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); 
@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.get("/", async (req, res) => {
     const GamesPriority = await prisma.Game.findMany({
-        where: { priority: true}
+        where: { Priority: true}
     }); 
     res.render("landing",{GamesPriority});
 });
@@ -28,7 +28,7 @@ app.post("/GamesView/:id/Priority", async (req, res)=>{
     try{
         const game = await prisma.Game.update({
             where: {id: id},
-            data : {priority: true}    
+            data : {Priority: true}    
         });
         res.redirect("/");}
     catch(error){
@@ -42,7 +42,7 @@ app.post("/GamesView/:id/noPriority", async (req, res)=>{
     try{
         const game = await prisma.Game.update({
             where: {id: param},
-            data : {priority: false}      
+            data : {Priority: false}      
         });
         res.redirect("/");    
     }
@@ -85,12 +85,12 @@ app.post("/GamesView/Create", async (req, res) => {
                 title,
                 description,
                 releaseDate: new Date(releaseDate),
-                genreId: parseInt(genreId),
+                GenreId: parseInt(genreId),
                 PublisherId: parseInt(PublisherId),
             }
+
         });
         res.redirect("/");
-        alert("game created successfully");
     } 
     catch (error) {
         console.error(error);
@@ -112,7 +112,7 @@ app.get("/GamesView/:id/edit", async (req, res) => {
         }
         const genres = await prisma.Genre.findMany();
         const Publishers = await prisma.Publisher.findMany();
-        res.render("GamesView/EditGame", { game, genres, Publishers });
+        res.render("GamesView/EditGames", { game, genres, Publishers });
     } 
     catch (error) {
         res.status(500).send("internal server error");
@@ -136,8 +136,7 @@ app.post("/GamesView/:id/edit", async (req, res) => {
         });
 
         res.redirect("/Games");
-        alert("Games was updated successfully");
-    } 
+        } 
     catch (error) {
         res.status(500).send("internal server error: couldn't update the game");
     }
@@ -157,8 +156,8 @@ app.post("/Publishers/CreatePublisher", async (req, res) => {
         });
 
         res.redirect("/Publishers");
-        alert("Publisher created successfully");
     } catch (err) {
+        console.log(err);
         res.status(500).send("internal server error: couldn't create the publisher");
     }
 });
@@ -191,12 +190,10 @@ app.post("/Publishers/:id/EditPublisher", async (req, res) => {
         await prisma.Publisher.update({
             where: { id: PublisherId },
             data: {
-                name: name,
-            },
-        });
+                name: name
+            }});
 
         res.redirect("/Publishers");
-        alert("Publisher was updated successfully");
     } catch (error) {
         res.status(500).send("internal servver error: couldn't update the publisher");
     }
@@ -205,11 +202,10 @@ app.post("/Publishers/:id/EditPublisher", async (req, res) => {
 
 app.get("/GamesView/:id/GamesDetails", async (req, res) => {
     const id = parseInt(req.params.id); 
-
     const game = await prisma.Game.findUnique({ 
-        where: { id },
+        where: { id: id },
         include: { 
-            genre: true,  
+            Genre: true,  
             Publisher: true 
         }
     });   
@@ -228,8 +224,6 @@ app.post("/GamesView/:id/delete", async (req, res) => {
             where: { id }
         });
         res.redirect("/");
-        alert("Game deleted successfully");
-
     } catch (error) {
         res.status(500).send("internal server error: couldn't delete the game");
     }
@@ -240,7 +234,7 @@ app.post("/GamesView/:id/delete", async (req, res) => {
 app.get("/Genres/:id/gameByGenre", async (req,res)=> { 
     const id = parseInt(req.params.id);
     const game = await prisma.Game.findMany({where: {genreId: id }});
-    res.render("Genres/index", {game});
+    res.render("Genres/gameByGenre", {game});
 })
 
 app.get("/Publishers/:id/gameByPublisher", async (req,res)=> {
@@ -259,7 +253,6 @@ app.post("/Publishers/:id/delete", async (req, res) => {
         });
 
         res.redirect("/Publishers"); 
-        alert("Publisher deleted successfully")
     }
      catch (error) {
         res.status(500).send("internal server error: couldn't delete the publisher or update the games");
