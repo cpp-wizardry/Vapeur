@@ -1,0 +1,14 @@
+{{#if Publishers}}
+{{#each Publishers.games}}
+<ul>
+    <li>
+        <h2>{{title}}</h2>
+        <p>Release Date: {{releaseDate}}</p>
+        <p>Genres: {{genres}}</p>
+        <p>Description: {{description}}</p>
+    </li>
+</ul>
+{{/each}}
+{{#else}}
+  <p>No games found for this publisher.</p>
+{{/if}}

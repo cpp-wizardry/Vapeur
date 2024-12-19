@@ -1,19 +1,19 @@
-{{#if publisher}}
+{{#if Publishers}}
     <h1>publisher list</h1>
 {{/if}}
 
-{{#if game}}
+
+{{#if Game}}
     <h1>Games from this publisher</h1>
 {{/if}}
 
 
 <ul>
-    {{#each publisher}} 
-    
+    {{#each Publishers}} 
         <li>
             <a href="/Publishers/{{Pid}}/gameByGenre">{{name}}</a>
             <form action="/Publishers/{{Pid}}/delete?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure ?');">
-                <button type="submit" style="color: white; background-color: red; padding: 5px 10px; border: none; border-radius: 5px;">Delete Publisher</button>
+                <button type="submit">Delete Publisher</button>
             </form>
             <p><a href="/Publishers/{{Pid}}/edit">Edit Publisher</a></p>
         </li>
@@ -21,7 +21,7 @@
 
     {{#each game}}
         <li>
-            <a href="/Games/{{id}}/details">{{title}}</a>
+            <a href="/GamesView/{{id}}/GamesDetails">{{title}}</a>
         </li>
     {{/each}}
 </ul>

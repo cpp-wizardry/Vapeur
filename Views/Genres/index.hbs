@@ -1,21 +1,19 @@
 {{#if genres}}
-    <h1>Liste des genres</h1>
+    <h1>Genre list</h1>
 {{/if}}
 
-{{#if jeu}}
-    <h1>Liste des jeux du genre</h1>
+{{#if Game}}
+    <h1>Game in this category</h1>
 {{/if}}
 <ul>
     {{#each genres}} 
         <li>
-            <a href="/Genres/{{id}}/jdg">{{nom}}</a> 
+            <a href="/Genres/{{id}}/gameByGenre">{{name}}</a> 
         </li>
     {{/each}}
-    {{#each jeu}}
+    {{#each Game}}
         <li>
-            <a href="/Jeux/{{id}}/details">{{titre}}</a> 
+            <a href="/Games/{{id}}/details">{{title}}</a> 
         </li>
     {{/each}}
 </ul>
-
-<a href="../">RETOUR à la page precedente</a> 
