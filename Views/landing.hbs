@@ -1,13 +1,10 @@
 <h1>Hottest Games</h1>
 <ul>
-{{#if Priority}}
-<p>test</p>
-    {{#each Priority}}
-                <li>
-                <a href="/GamesView/{{id}}/details">{{title}}</a>
-                </li>              
-    {{/each}}
+{{#each Game}}
+{{#if Priority = true}}
+<li><a href="/GamesView/{{game.Gid}}/GamesDetails">{{title}}</a> - {{releaseDate}} - {{Publishers}}</li>
 {{else}}
    <p>Weird, there are no Games</p>
 {{/if}}
+{{/each}}
 </ul>

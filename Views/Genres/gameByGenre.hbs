@@ -1,3 +1,9 @@
+
+{{#if Publisher}}
+        <p>Publishers : <a href="/Publishers/{{game.Publisher.Pid}}/gameByPublisher">{{game.Publisher.name}}</a></p> 
+{{else}}
+        <p>Publishers : NULL</p>
+{{/if}}
 {{#if Publishers}}
 {{#each Publishers.games}}
 <ul>
